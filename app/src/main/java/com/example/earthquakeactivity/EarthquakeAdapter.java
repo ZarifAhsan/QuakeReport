@@ -1,6 +1,5 @@
 package com.example.earthquakeactivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +11,10 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-public class ListAdapter extends ArrayAdapter<List> {
+public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
-    public ListAdapter(Activity context, ArrayList<List> List) {
-        super(context, 0, List);
+    public EarthquakeAdapter(Context context, ArrayList<Earthquake> Earthquake) {
+        super(context, 0, Earthquake);
     }
 
     @NonNull
@@ -28,17 +27,17 @@ public class ListAdapter extends ArrayAdapter<List> {
                     R.layout.list_item, parent, false);
         }
 
-        List currentList = getItem(position);
+        Earthquake currentEarthquake = getItem(position);
 
         TextView magnitudeTextView = listItemView.findViewById(R.id.magnitude_text_view);
-        assert currentList != null;
-        magnitudeTextView.setText(currentList.getMagnitude());
+        assert currentEarthquake != null;
+        magnitudeTextView.setText(currentEarthquake.getMagnitude());
 
         TextView occurrencePlaceTextView = listItemView.findViewById(R.id.occurrence_place_text_view);
-        occurrencePlaceTextView.setText(currentList.getOccurrencePlace());
+        occurrencePlaceTextView.setText(currentEarthquake.getOccurrencePlace());
 
         TextView timeTextView = listItemView.findViewById(R.id.time_text_view);
-        timeTextView.setText(currentList.getTimeOfOccurrence());
+        timeTextView.setText(currentEarthquake.getTimeOfOccurrence());
 
         return listItemView;
     }

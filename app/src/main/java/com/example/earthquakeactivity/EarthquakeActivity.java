@@ -3,7 +3,6 @@ package com.example.earthquakeactivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class EarthquakeActivity extends AppCompatActivity {
 
 
         // Create a fake list of earthquake locations.
-        final ArrayList<List> earthquakes = new ArrayList<>();
+        final ArrayList<Earthquake> earthquakes = new ArrayList<>();
 
         createListItem(earthquakes);
 
@@ -28,20 +27,21 @@ public class EarthquakeActivity extends AppCompatActivity {
 
     }
 
-    private void createListItem(ArrayList<List> earthquakes) {
-        earthquakes.add(new List("7.1", "San Francisco", "January 23, 2019"));
-        earthquakes.add(new List("4.6", "London", "March 02 2018"));
-        earthquakes.add(new List("5.1", "Tokyo", "December 09, 2019"));
-        earthquakes.add(new List("5.4", "Mexico City", "April 08, 2020"));
-        earthquakes.add(new List("4.12", "Moscow", "August 12, 2018"));
-        earthquakes.add(new List("6.2", "Rio de Janeiro", "July 20, 2019"));
-        earthquakes.add(new List("5.5", "Paris", "February 16, 2020"));
+    private void createListItem(ArrayList<Earthquake> earthquakes) {
+        earthquakes.add(new Earthquake("7.1", "San Francisco", "Jan 23, 2019"));
+        earthquakes.add(new Earthquake("4.6", "London", "Mar 02 2018"));
+        earthquakes.add(new Earthquake("5.1", "Tokyo", "Dec 09, 2019"));
+        earthquakes.add(new Earthquake("5.4", "Mexico City", "Apr 08, 2020"));
+        earthquakes.add(new Earthquake("4.12", "Moscow", "Aug 12, 2018"));
+        earthquakes.add(new Earthquake("6.2", "Rio de Janeiro", "July 20, 2019"));
+        earthquakes.add(new Earthquake("5.5", "Paris", "Feb 16, 2020"));
+
     }
 
-    private void createListView(final ArrayList<List> earthquakes) {
-        ListAdapter listAdapter = new ListAdapter(EarthquakeActivity.this, earthquakes);
+    private void createListView(final ArrayList<Earthquake> earthquakes) {
+        EarthquakeAdapter earthquakeAdapter = new EarthquakeAdapter(EarthquakeActivity.this, earthquakes);
 
         ListView earthquakeListView = findViewById(R.id.list);
-        earthquakeListView.setAdapter(listAdapter);
+        earthquakeListView.setAdapter(earthquakeAdapter);
     }
 }

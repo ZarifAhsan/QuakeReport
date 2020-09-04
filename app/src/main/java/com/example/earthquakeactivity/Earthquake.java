@@ -1,6 +1,6 @@
 package com.example.earthquakeactivity;
 
-public class List {
+public class Earthquake {
 
     private String mMagnitude;
 
@@ -9,7 +9,7 @@ public class List {
     private String mTimeOfOccurrence;
 
 
-    public List(String magnitude, String occurrencePlace, String timeOfOccurrence) {
+    public Earthquake(String magnitude, String occurrencePlace, String timeOfOccurrence) {
         mMagnitude = magnitude;
         mOccurrencePlace = occurrencePlace;
         mTimeOfOccurrence = timeOfOccurrence;
