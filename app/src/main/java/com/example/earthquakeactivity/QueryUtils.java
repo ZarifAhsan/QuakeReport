@@ -2,7 +2,6 @@ package com.example.earthquakeactivity;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
-import android.widget.ScrollView;
 
 import org.json.JSONException;
 import org.json.JSONArray;
@@ -31,9 +30,7 @@ public class QueryUtils {
      * This class is only meant to hold static variables and methods, which can be accessed
      * directly from the class name QueryUtils (and an object instance of QueryUtils is not needed).
      */
-    private QueryUtils() throws JSONException {
-
-
+    private QueryUtils() {
     }
 
     /**
@@ -63,23 +60,13 @@ public class QueryUtils {
 
                 JSONObject properties = currentEarthquake.getJSONObject("properties");
 
-                String magnitude = properties.getString("mag");
+                double magnitude = properties.getDouble("mag");
 
                 String placeName = properties.getString("place");
 
                 long timeInMilliseconds = properties.getLong("time");
-                Date dateObject = new Date(timeInMilliseconds);
 
-                @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM DD, yyyy");
-                String dateToDisplay = dateFormatter.format(dateObject);
-
-                @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm a");
-                String timeToDisplay = timeFormatter.format(dateObject);
-
-
-                Earthquake earthquake = new Earthquake(magnitude, placeName, dateToDisplay, timeToDisplay);
+                Earthquake earthquake = new Earthquake(magnitude, placeName, timeInMilliseconds);
                 earthquakes.add(earthquake);
 
             }

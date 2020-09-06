@@ -2,36 +2,29 @@ package com.example.earthquakeactivity;
 
 public class Earthquake {
 
-    private String mMagnitude;
+    private double mMagnitude;
 
-    private String mOccurrencePlace;
+    private String mPrimaryLocation;
 
-    private String mDateOfOccurrence;
-
-    private String mTimeOfOccurrence;
+    private long mTimeInMilliSeconds;
 
 
-    public Earthquake(String magnitude, String occurrencePlace,String dateOfOccurrence, String timeOfOccurrence) {
+    public Earthquake(double magnitude, String primaryLocation, long timeInMilliSeconds) {
         mMagnitude = magnitude;
-        mOccurrencePlace = occurrencePlace;
-        mDateOfOccurrence = dateOfOccurrence;
-        mTimeOfOccurrence = timeOfOccurrence;
+        mPrimaryLocation = primaryLocation;
+        mTimeInMilliSeconds = timeInMilliSeconds;
     }
 
 
-    public String getMagnitude() {
+    public double getMagnitude() {
         return mMagnitude;
     }
 
-    public String getOccurrencePlace() {
-        return mOccurrencePlace;
+    public String getPrimaryLocation() {
+        return mPrimaryLocation;
     }
 
-    public String getDateOfOccurrence() {
-        return mDateOfOccurrence;
-    }
-
-    public String getTimeOfOccurrence() {
-        return mTimeOfOccurrence;
+    public long getTimeInMilliSeconds() {
+        return mTimeInMilliSeconds;
     }
 }
