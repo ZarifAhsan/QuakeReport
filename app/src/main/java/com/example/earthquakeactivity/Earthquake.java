@@ -6,12 +6,15 @@ public class Earthquake {
 
     private String mOccurrencePlace;
 
+    private String mDateOfOccurrence;
+
     private String mTimeOfOccurrence;
 
 
-    public Earthquake(String magnitude, String occurrencePlace, String timeOfOccurrence) {
+    public Earthquake(String magnitude, String occurrencePlace,String dateOfOccurrence, String timeOfOccurrence) {
         mMagnitude = magnitude;
         mOccurrencePlace = occurrencePlace;
+        mDateOfOccurrence = dateOfOccurrence;
         mTimeOfOccurrence = timeOfOccurrence;
     }
 
@@ -22,6 +25,10 @@ public class Earthquake {
 
     public String getOccurrencePlace() {
         return mOccurrencePlace;
+    }
+
+    public String getDateOfOccurrence() {
+        return mDateOfOccurrence;
     }
 
     public String getTimeOfOccurrence() {

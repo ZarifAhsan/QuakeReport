@@ -1,5 +1,6 @@
 package com.example.earthquakeactivity;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.widget.ScrollView;
 
@@ -7,7 +8,9 @@ import org.json.JSONException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class QueryUtils {
 
@@ -61,10 +64,22 @@ public class QueryUtils {
                 JSONObject properties = currentEarthquake.getJSONObject("properties");
 
                 String magnitude = properties.getString("mag");
-                String placeName = properties.getString("place");
-                String time = properties.getString("time");
 
-                Earthquake earthquake = new Earthquake(magnitude, placeName, time);
+                String placeName = properties.getString("place");
+
+                long timeInMilliseconds = properties.getLong("time");
+                Date dateObject = new Date(timeInMilliseconds);
+
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM DD, yyyy");
+                String dateToDisplay = dateFormatter.format(dateObject);
+
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+                String timeToDisplay = timeFormatter.format(dateObject);
+
+
+                Earthquake earthquake = new Earthquake(magnitude, placeName, dateToDisplay, timeToDisplay);
                 earthquakes.add(earthquake);
 
             }
