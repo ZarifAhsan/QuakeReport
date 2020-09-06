@@ -19,24 +19,24 @@ public class EarthquakeActivity extends AppCompatActivity {
 
 
         // Create a fake list of earthquake locations.
-        final ArrayList<Earthquake> earthquakes = new ArrayList<>();
+        final ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
 
-        createListItem(earthquakes);
+//        createListItem(earthquakes);
 
         createListView(earthquakes);
 
     }
 
-    private void createListItem(ArrayList<Earthquake> earthquakes) {
-        earthquakes.add(new Earthquake("7.1", "San Francisco", "Jan 23, 2019"));
-        earthquakes.add(new Earthquake("4.6", "London", "Mar 02 2018"));
-        earthquakes.add(new Earthquake("5.1", "Tokyo", "Dec 09, 2019"));
-        earthquakes.add(new Earthquake("5.4", "Mexico City", "Apr 08, 2020"));
-        earthquakes.add(new Earthquake("4.12", "Moscow", "Aug 12, 2018"));
-        earthquakes.add(new Earthquake("6.2", "Rio de Janeiro", "July 20, 2019"));
-        earthquakes.add(new Earthquake("5.5", "Paris", "Feb 16, 2020"));
-
-    }
+//    private void createListItem(ArrayList<Earthquake> earthquakes) {
+//        earthquakes.add(new Earthquake("7.1", "San Francisco", "Jan 23, 2019"));
+//        earthquakes.add(new Earthquake("4.6", "London", "Mar 02 2018"));
+//        earthquakes.add(new Earthquake("5.1", "Tokyo", "Dec 09, 2019"));
+//        earthquakes.add(new Earthquake("5.4", "Mexico City", "Apr 08, 2020"));
+//        earthquakes.add(new Earthquake("4.12", "Moscow", "Aug 12, 2018"));
+//        earthquakes.add(new Earthquake("6.2", "Rio de Janeiro", "July 20, 2019"));
+//        earthquakes.add(new Earthquake("5.5", "Paris", "Feb 16, 2020"));
+//
+//    }
 
     private void createListView(final ArrayList<Earthquake> earthquakes) {
         EarthquakeAdapter earthquakeAdapter = new EarthquakeAdapter(EarthquakeActivity.this, earthquakes);
