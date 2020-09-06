@@ -75,7 +75,7 @@ public class QueryUtils {
                 String dateToDisplay = dateFormatter.format(dateObject);
 
                 @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+                SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm a");
                 String timeToDisplay = timeFormatter.format(dateObject);
 
 
