@@ -28,7 +28,6 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        // Check if the existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
@@ -42,14 +41,10 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         TextView magnitudeTextView = listItemView.findViewById(R.id.magnitude_text_view);
         String formattedMagnitude = formatMagnitude(currentEarthquake.getMagnitude());
         magnitudeTextView.setText(formattedMagnitude);
-        // Set the proper background color on the magnitude circle.
-        // Fetch the background from the TextView, which is a GradientDrawable.
         GradientDrawable magnitudeCircle = (GradientDrawable) magnitudeTextView.getBackground();
 
-        // Get the appropriate background color based on the current earthquake magnitude
         int magnitudeColor = getMagnitudeColor(currentEarthquake.getMagnitude());
 
-        // Set the color on the magnitude circle
         magnitudeCircle.setColor(magnitudeColor);
 
 
@@ -68,10 +63,10 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
             primaryLocation = originalLocation;
         }
 
-        TextView primaryLocationView = (TextView) listItemView.findViewById(R.id.primary_location_text_view);
+        TextView primaryLocationView = listItemView.findViewById(R.id.primary_location_text_view);
         primaryLocationView.setText(primaryLocation);
 
-        TextView locationOffsetView = (TextView) listItemView.findViewById(R.id.location_offset_text_view);
+        TextView locationOffsetView = listItemView.findViewById(R.id.location_offset_text_view);
         locationOffsetView.setText(locationOffset);
 
 
@@ -89,8 +84,6 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
         return listItemView;
     }
-
-
 
     private int getMagnitudeColor(double magnitude) {
         int magnitudeColorResourceId;
@@ -132,27 +125,17 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         return ContextCompat.getColor(getContext(), magnitudeColorResourceId);
     }
 
-    /**
-     * Return the formatted magnitude string showing 1 decimal place (i.e. "3.2")
-     * from a decimal magnitude value.
-     */
     private String formatMagnitude(double magnitude) {
         DecimalFormat magnitudeFormat = new DecimalFormat("0.0");
         return magnitudeFormat.format(magnitude);
     }
 
-    /**
-     * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
-     */
     private String formatDate(Date dateObject) {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
         return dateFormat.format(dateObject);
     }
 
-    /**
-     * Return the formatted date string (i.e. "4:30 PM") from a Date object.
-     */
     private String formatTime(Date dateObject) {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
