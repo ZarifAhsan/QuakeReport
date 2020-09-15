@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +33,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     private static final int EARTHQUAKE_LOADER_ID = 1;
 
     private TextView mEmptyStateTextView;
+
+
 
 
     @NonNull
@@ -66,20 +70,12 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(LOG_TAG, "TEST: Earthquake Activity OnCreate() called");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_earthquake);
 
         createListView();
+        checkNetworkConnectivity();
 
-//        EarthquakeAsyncTask task = new EarthquakeAsyncTask();
-//        task.execute(USGS_REQUEST_URL);
-
-        LoaderManager loaderManager = getSupportLoaderManager();
-
-        Log.i(LOG_TAG, "TEST: Calling initLoader()..");
-
-        loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
     }
 
     private void createListView() {
@@ -106,26 +102,24 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         });
     }
 
+    private void checkNetworkConnectivity() {
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
-//    public static class EarthquakeAsyncTask extends AsyncTask<String, Void, List<Earthquake>> {
-//
-//        @Override
-//        protected List<Earthquake> doInBackground(String... urls) {
-//            if (urls.length < 1 || urls[0] == null) {
-//                return null;
-//            }
-//
-//            return QueryUtils.fetchEarthquakeData(urls[0]);
-//        }
-//
-//        protected void onPostExecute(List<Earthquake> data) {
-//            mAdapter.clear();
-//
-//            // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
-//            // data set. This will trigger the ListView to update.
-//            if (data != null && !data.isEmpty()) {
-//                mAdapter.addAll(data);
-//            }
-//        }
-//    }
+        if (networkInfo != null && networkInfo.isConnected()) {
+            initLoader();
+        } else {
+            ProgressBar progressBar = findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
+
+            mEmptyStateTextView.setText(R.string.no_internet_connection);
+        }
+    }
+
+    private void initLoader() {
+        LoaderManager loaderManager = getSupportLoaderManager();
+        Log.i(LOG_TAG, "TEST: Calling initLoader()..");
+        loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+    }
+
 }
