@@ -1,6 +1,7 @@
 package com.example.earthquakeactivity;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,12 +22,14 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
 
     @Override
     public void onStartLoading() {
+        Log.i(LOG_TAG, "TEST: onStartLoading() called..");
         forceLoad();
     }
 
     @Nullable
     @Override
     public List<Earthquake> loadInBackground() {
+        Log.i(LOG_TAG, "TEST: loadInBackground() called..");
         if (mUrl == null) {
             return null;
         }

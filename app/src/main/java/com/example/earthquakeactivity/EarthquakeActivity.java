@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -31,11 +32,13 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     @NonNull
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int i, @Nullable Bundle bundle) {
+        Log.i(LOG_TAG, "TEST: onCreateLoader() called..");
         return new EarthquakeLoader(this, USGS_REQUEST_URL);
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
+        Log.i(LOG_TAG, "TEST: onLoadFinished() called..");
         mAdapter.clear();
 
         if (earthquakes != null && !earthquakes.isEmpty()) {
@@ -45,12 +48,15 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoaderReset(@NonNull Loader<List<Earthquake>> loader) {
+        Log.i(LOG_TAG, "TEST: onLoaderReset() called..");
         mAdapter.clear();
     }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(LOG_TAG, "TEST: Earthquake Activity OnCreate() called");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_earthquake);
 
@@ -60,6 +66,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 //        task.execute(USGS_REQUEST_URL);
 
         LoaderManager loaderManager = getSupportLoaderManager();
+
+        Log.i(LOG_TAG, "TEST: Calling initLoader()..");
 
         loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
     }
