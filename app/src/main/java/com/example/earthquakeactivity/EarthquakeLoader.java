@@ -10,8 +10,13 @@ import java.util.List;
 
 public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
 
+    private static final String LOG_TAG = EarthquakeLoader.class.getName();
+
+    private String mUrl;
+
     public EarthquakeLoader(@NonNull Context context, String url) {
         super(context);
+        mUrl = url;
     }
 
     @Override
@@ -22,6 +27,10 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
     @Nullable
     @Override
     public List<Earthquake> loadInBackground() {
-        return null;
+        if (mUrl == null) {
+            return null;
+        }
+
+        return QueryUtils.fetchEarthquakeData(mUrl);
     }
 }

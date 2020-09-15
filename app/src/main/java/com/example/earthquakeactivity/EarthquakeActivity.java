@@ -25,6 +25,30 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     private static EarthquakeAdapter mAdapter;
 
+    private static final int EARTHQUAKE_LOADER_ID = 1;
+
+
+    @NonNull
+    @Override
+    public Loader<List<Earthquake>> onCreateLoader(int i, @Nullable Bundle bundle) {
+        return new EarthquakeLoader(this, USGS_REQUEST_URL);
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
+        mAdapter.clear();
+
+        if (earthquakes != null && !earthquakes.isEmpty()) {
+            mAdapter.addAll(earthquakes);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<List<Earthquake>> loader) {
+        mAdapter.clear();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +56,12 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
         createListView();
 
-        EarthquakeAsyncTask task = new EarthquakeAsyncTask();
-        task.execute(USGS_REQUEST_URL);
+//        EarthquakeAsyncTask task = new EarthquakeAsyncTask();
+//        task.execute(USGS_REQUEST_URL);
 
+        LoaderManager loaderManager = getSupportLoaderManager();
+
+        loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
     }
 
     private void createListView() {
@@ -59,43 +86,25 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     }
 
 
-    @NonNull
-    @Override
-    public Loader<List<Earthquake>> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
-
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<List<Earthquake>> loader) {
-
-    }
-
-
-
-    public static class EarthquakeAsyncTask extends AsyncTask<String, Void, List<Earthquake>> {
-
-        @Override
-        protected List<Earthquake> doInBackground(String... urls) {
-            if (urls.length < 1 || urls[0] == null) {
-                return null;
-            }
-
-            return QueryUtils.fetchEarthquakeData(urls[0]);
-        }
-
-        protected void onPostExecute(List<Earthquake> data) {
-            mAdapter.clear();
-
-            // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
-            // data set. This will trigger the ListView to update.
-            if (data != null && !data.isEmpty()) {
-                mAdapter.addAll(data);
-            }
-        }
-    }
+//    public static class EarthquakeAsyncTask extends AsyncTask<String, Void, List<Earthquake>> {
+//
+//        @Override
+//        protected List<Earthquake> doInBackground(String... urls) {
+//            if (urls.length < 1 || urls[0] == null) {
+//                return null;
+//            }
+//
+//            return QueryUtils.fetchEarthquakeData(urls[0]);
+//        }
+//
+//        protected void onPostExecute(List<Earthquake> data) {
+//            mAdapter.clear();
+//
+//            // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+//            // data set. This will trigger the ListView to update.
+//            if (data != null && !data.isEmpty()) {
+//                mAdapter.addAll(data);
+//            }
+//        }
+//    }
 }
