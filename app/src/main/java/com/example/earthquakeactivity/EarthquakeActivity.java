@@ -31,11 +31,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     
     private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=4&limit=16&starttime=2017-01-01";
 
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 04b9b8c523ca034ac64ca451e2ad01bc8b993d31
     @NonNull
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int i, @Nullable Bundle bundle) {
