@@ -35,8 +35,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     private TextView mEmptyStateTextView;
 
 
-
-
     @NonNull
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int i, @Nullable Bundle bundle) {
